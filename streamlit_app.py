@@ -19,28 +19,28 @@ ingredients_list = st.multiselect(
     'Choose upto 5 ingredients', my_dataframe
     , max_selections = 5)
 if ingredients_list:
-    ingredients_string = ''
+	ingredients_string = ''
 
-    for fruit_chosen in ingredients_list:
-        ingredients_string += fruit_chosen + ' '
+	for fruit_chosen in ingredients_list:
+		ingredients_string += fruit_chosen + ' '
 		fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 		fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
-    st.write(ingredients_string)
+    	st.write(ingredients_string)
 
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
-    values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
+    	my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
+    	values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
   
-    # my_insert_stmt = f"INSERT INTO smoothies.public.orders (ingredients) VALUES ('{ingredients_string}', '{name_on_order}')"
-    time_to_insert = st.button('Submit Order')
+    	# my_insert_stmt = f"INSERT INTO smoothies.public.orders (ingredients) VALUES ('{ingredients_string}', '{name_on_order}')"
+    	time_to_insert = st.button('Submit Order')
     
-    #st.write(my_insert_stmt)
-    #st.stop()
+    	#st.write(my_insert_stmt)
+    	#st.stop()
     
-    if time_to_insert:
-        session.sql(my_insert_stmt).collect()
+    	if time_to_insert:
+        	session.sql(my_insert_stmt).collect()
 	    
-        st.success(f"Your Smoothie is ordered,  {name_on_order}", icon = "✅",)
+        	st.success(f"Your Smoothie is ordered,  {name_on_order}", icon = "✅",)
     
 
 
